@@ -70,10 +70,10 @@ function createDatabaseAndTable() {
   }
 
 
-const serviceAccount = require("./newusers-bf951-firebase-adminsdk-9p3z6-46dd5fa3a5.json"); // Replace with your own service account key path
+const serviceAccount = require("./newusers-bf951-firebase-adminsdk-9p3z6-46dd5fa3a5.json");
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://newUsers.firebaseio.com', // Replace with your Firebase project URL
+    databaseURL: 'https://newUsers.firebaseio.com',
   });
 
   const firestore = admin.firestore();
@@ -93,7 +93,7 @@ app.get("/", (req, res) => {
       console.error("Error fetching data from MySQL: ", err);
       res.status(500).send("Internal Server Error");
     } else {
-      console.log("Results from MySQL:", results); // Add this line
+      console.log("Results from MySQL:", results); 
       res.send(results)
     }
   });
@@ -103,7 +103,6 @@ app.post("/submit",async (req, res) => {
   console.log(req.body);
   const { name, address, phone, email } = req.body;
 
-  // Insert data into MySQL
   db.query(
     "INSERT INTO users (name, address, phone, email) VALUES (?, ?, ?, ?)",
     [name, address, phone, email],
@@ -123,8 +122,6 @@ app.post("/submit",async (req, res) => {
     }
   );
 });
-
-// Start the server
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
